@@ -4,6 +4,44 @@ title: 🤗 Stats
 
 # Hub Growth
 
+```sql hub_growth
+WITH all_data AS (
+  SELECT 
+    DATE_TRUNC('month', CAST(createdAt AS DATE)) AS month, 
+    'model' AS repo 
+  FROM read_parquet('https://huggingface.co/datasets/cfahlgren1/hub-stats/resolve/refs%2Fconvert%2Fparquet/models/train/0000.parquet?download=true')
+  
+  UNION ALL
+  
+  SELECT 
+    DATE_TRUNC('month', CAST(createdAt AS DATE)) AS month, 
+    'dataset' AS repo 
+  FROM read_parquet('https://huggingface.co/datasets/cfahlgren1/hub-stats/resolve/refs%2Fconvert%2Fparquet/datasets/train/0000.parquet?download=true')
+  
+  UNION ALL
+  
+  SELECT 
+    DATE_TRUNC('month', CAST(createdAt AS DATE)) AS month, 
+    'space' AS repo 
+  FROM read_parquet('https://huggingface.co/datasets/cfahlgren1/hub-stats/resolve/refs%2Fconvert%2Fparquet/spaces/train/0000.parquet?download=true')
+)
+SELECT
+  month,
+  repo,
+  COUNT(*) AS creations
+FROM all_data
+WHERE month < DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY month, repo
+ORDER BY month, repo
+```
+
+<AreaChart 
+    data={hub_growth}
+    x=month
+    y=creations
+    series=repo
+/>
+
 
 # Model Licenses
 
