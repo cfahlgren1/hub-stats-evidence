@@ -1,12 +1,11 @@
 ---
-title: Hub Stats
-emoji: 📈
+title: Hub Stats Code Space
+emoji: 🤖
 colorFrom: red
 colorTo: yellow
 sdk: docker
 pinned: false
 license: apache-2.0
-app_port: 3000
 ---
 # Hugging Face Hub Stats
 
