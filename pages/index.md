@@ -72,7 +72,7 @@ ORDER BY month, repo
     }
 />
 
-# Dataset SDKs
+# Dataset Licenses
 
 ```sql dataset_license_ratio
   SELECT name, COUNT(*) as value
