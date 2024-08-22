@@ -4,6 +4,8 @@ title: 🤗 Stats
 
 # Hub Growth
 
+Models, Datasets, Spaces created per month
+
 ```sql hub_growth
 WITH all_data AS (
   SELECT 
@@ -34,6 +36,7 @@ WHERE month < DATE_TRUNC('month', CURRENT_DATE)
 GROUP BY month, repo
 ORDER BY month, repo
 ```
+
 
 <BarChart 
     data={hub_growth}
