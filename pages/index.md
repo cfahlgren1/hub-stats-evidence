@@ -35,7 +35,7 @@ GROUP BY month, repo
 ORDER BY month, repo
 ```
 
-<AreaChart 
+<BarChart 
     data={hub_growth}
     x=month
     y=creations
