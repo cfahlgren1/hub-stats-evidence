@@ -32,24 +32,81 @@ SELECT
   repo,
   COUNT(*) AS creations
 FROM all_data
-WHERE month < DATE_TRUNC('month', CURRENT_DATE)
+WHERE month < DATE_TRUNC('month', CURRENT_DATE())
 GROUP BY month, repo
 ORDER BY month, repo
 ```
-
 
 <BarChart 
     data={hub_growth}
     x=month
     y=creations
+      colorPalette={[
+        '#cf0d06',
+        '#eb5752',
+        '#e88a87',
+        '#fcdad9',
+        ]}
     series=repo
 />
+
+# Model Growth Monthly
+
+```sql model_creations_by_month
+SELECT month, repo, creations
+FROM ${hub_growth}
+WHERE repo = 'model'
+```
+
+<AreaChart 
+    data={model_creations_by_month}
+    x=month
+    fillColor="#cf0d06"
+    strokeColor="#eb5752"
+    labels=true
+    y=creations
+/>
+
+# Dataset Growth Monthly
+
+```sql dataset_creations_by_month
+SELECT month, repo, creations
+FROM ${hub_growth}
+WHERE repo = 'dataset'
+```
+
+<AreaChart 
+    data={dataset_creations_by_month}
+    x=month
+    fillColor="#cf0d06"
+    strokeColor="#eb5752"
+    labels=true
+    y=creations
+/>
+
+# Space Growth Monthly
+
+```sql space_creations_by_month
+SELECT month, repo, creations
+FROM ${hub_growth}
+WHERE repo = 'space'
+```
+
+<AreaChart 
+    data={space_creations_by_month}
+    x=month
+    y=creations
+    fillColor="#cf0d06"
+    strokeColor="#eb5752"
+    labels=true
+/>
+
 
 
 # Model Licenses
 
 ```sql model_license_ratio
-  SELECT name, COUNT(*) as value
+  SELECT SUBSTRING(name, 9) AS name, COUNT(*) as value
   FROM read_parquet('https://huggingface.co/datasets/cfahlgren1/hub-stats/resolve/refs%2Fconvert%2Fparquet/models/train/0000.parquet?download=true'),
    UNNEST(tags) AS t(name)
   WHERE name LIKE 'license:%'
@@ -75,7 +132,7 @@ ORDER BY month, repo
 # Dataset Licenses
 
 ```sql dataset_license_ratio
-  SELECT name, COUNT(*) as value
+  SELECT SUBSTRING(name, 9) AS name, COUNT(*) as value
   FROM read_parquet('https://huggingface.co/datasets/cfahlgren1/hub-stats/resolve/refs%2Fconvert%2Fparquet/datasets/train/0000.parquet?download=true'),
   UNNEST(tags) AS t(name)
   WHERE name LIKE 'license:%'
