@@ -101,6 +101,25 @@ WHERE repo = 'space'
     labels=true
 />
 
+# Model Downloads by Pipeline Tag (Last 30 days)
+
+```sql model_pipeline_downloads
+SELECT
+  pipeline_tag, SUM(downloads) as total_downloads
+FROM read_parquet('https://huggingface.co/datasets/cfahlgren1/hub-stats/resolve/refs%2Fconvert%2Fparquet/models/train/0000.parquet?download=true')
+  GROUP BY pipeline_tag
+  ORDER BY total_downloads DESC;
+```
+
+<BarChart
+  data={model_pipeline_downloads}
+  x=pipeline_tag
+  y=total_downloads
+  yAxisTitle="Total Downloads"
+  xAxisTitle="Pipeline Tag"
+  sort=true
+/>
+<DataTable data={model_pipeline_downloads} />
 
 
 # Model Licenses
