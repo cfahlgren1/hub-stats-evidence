@@ -121,8 +121,10 @@ FROM read_parquet('https://huggingface.co/datasets/cfahlgren1/hub-stats/resolve/
   fillColor="#cf0d06"
   strokeColor="#eb5752"
 />
-<DataTable data={model_pipeline_downloads} />
-
+<DataTable data={model_pipeline_downloads} search=true>
+  <Column id="pipeline_tag" title="Pipeline Tag" />
+  <Column id="total_downloads" title="Total Downloads" fmt='#,##0.00,,"M"' />
+</DataTable>
 
 # Model Licenses
 
