@@ -115,7 +115,7 @@ FROM read_parquet('https://huggingface.co/datasets/cfahlgren1/hub-stats/resolve/
   data={model_pipeline_downloads}
   x=pipeline_tag
   y=total_downloads
-  yAxisTitle="Total Downloads"
+  yAxisTitle="Downloads Last 30 Days"
   xAxisTitle="Pipeline Tag"
   sort=true
   fillColor="#cf0d06"
@@ -123,7 +123,7 @@ FROM read_parquet('https://huggingface.co/datasets/cfahlgren1/hub-stats/resolve/
 />
 <DataTable data={model_pipeline_downloads} search=true>
   <Column id="pipeline_tag" title="Pipeline Tag" />
-  <Column id="total_downloads" title="Total Downloads" fmt='#,##0.00,,"M"' />
+  <Column id="total_downloads" title="Downloads Last 30 Days" fmt='#,##0.00,,"M"' />
 </DataTable>
 
 # Model Licenses
