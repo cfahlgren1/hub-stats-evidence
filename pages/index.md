@@ -118,6 +118,8 @@ FROM read_parquet('https://huggingface.co/datasets/cfahlgren1/hub-stats/resolve/
   yAxisTitle="Total Downloads"
   xAxisTitle="Pipeline Tag"
   sort=true
+  fillColor="#cf0d06"
+  strokeColor="#eb5752"
 />
 <DataTable data={model_pipeline_downloads} />
 
