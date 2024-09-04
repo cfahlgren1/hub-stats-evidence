@@ -105,26 +105,73 @@ WHERE repo = 'space'
 
 ```sql model_pipeline_downloads
 SELECT
-  pipeline_tag, SUM(downloads) as total_downloads
+pipeline_tag AS name, SUM(downloads) AS value
 FROM read_parquet('https://huggingface.co/datasets/cfahlgren1/hub-stats/resolve/refs%2Fconvert%2Fparquet/models/train/0000.parquet?download=true')
-  GROUP BY pipeline_tag
-  ORDER BY total_downloads DESC;
+GROUP BY pipeline_tag
+ORDER BY value DESC;
 ```
 
-<BarChart
-  data={model_pipeline_downloads}
-  x=pipeline_tag
-  y=total_downloads
-  yAxisTitle="Downloads Last 30 Days"
-  xAxisTitle="Pipeline Tag"
-  sort=true
-  fillColor="#cf0d06"
-  strokeColor="#eb5752"
-/>
 <DataTable data={model_pipeline_downloads} search=true>
-  <Column id="pipeline_tag" title="Pipeline Tag" />
-  <Column id="total_downloads" title="Downloads Last 30 Days" fmt='#,##0.00,,"M"' />
+  <Column id="name" title="Pipeline Tag" />
+  <Column id="value" title="Downloads Last 30 Days" fmt='#,##0.00,,"M"' />
 </DataTable>
+
+
+<ECharts config={
+    {
+        tooltip: {
+            formatter: '{b}: {c} ({d}%)'
+        },
+        series: [
+            {
+                type: 'pie',
+                radius: ['40%', '70%'],
+                data: [...model_pipeline_downloads],
+                label: {
+                    show: true,
+                    formatter: '{b}: {c}'
+                }
+            }
+        ]
+    }
+}
+/>
+
+# Model Downloads by Library (Last 30 days)
+
+```sql model_library_downloads
+SELECT
+library_name AS name, SUM(downloads) AS value
+FROM read_parquet('https://huggingface.co/datasets/cfahlgren1/hub-stats/resolve/refs%2Fconvert%2Fparquet/models/train/0000.parquet?download=true')
+GROUP BY library_name
+ORDER BY value DESC;
+```
+
+<DataTable data={model_library_downloads} search=true>
+  <Column id="name" title="Library" />
+  <Column id="value" title="Downloads Last 30 Days" fmt='#,##0.00,,"M"' />
+</DataTable>
+
+
+<ECharts config={
+    {
+        tooltip: {
+            formatter: '{b}: {c} ({d}%)'
+        },
+        series: [
+            {
+                type: 'pie',
+                radius: ['40%', '70%'],
+                data: [...model_library_downloads],
+                label: {
+                    show: true,
+                    formatter: '{b}: {c}'
+                }
+            }
+        ]
+    }
+}
+/>
 
 # Model Licenses
 
