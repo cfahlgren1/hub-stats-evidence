@@ -39,16 +39,17 @@ ORDER BY week DESC;
     yMax=1
 />
 
-## Low Hanging Fruit 
+## Top Models without Base Model Tag
 
-#### `GGUF`, `MLC`, `AWQ`, `GPTQ`, or `ONNX` models without Base Model Tag
+#### Low Hanging Fruit: `GGUF`, `MLC`, `AWQ`, `GPTQ`, or `ONNX` models without Base Model Tag
 
 ```sql low_hanging_fruit
 WITH model_derivatives AS (
   SELECT 
     id,
     tags,
-    downloads
+    downloads,
+    'https://huggingface.co/' || id AS hf_link
   FROM read_parquet('https://huggingface.co/datasets/cfahlgren1/hub-stats/resolve/refs%2Fconvert%2Fparquet/models/train/0000.parquet?download=true')
   WHERE LOWER(modelId) LIKE '%gguf%'
      OR LOWER(modelId) LIKE '%mlc%'
@@ -64,7 +65,7 @@ models_with_base_model_tag AS (
   WHERE LOWER(tag) LIKE '%base_model:%'
 )
 SELECT 
-  gm.id,
+  gm.hf_link,
   gm.downloads
 FROM model_derivatives gm
 LEFT JOIN models_with_base_model_tag bm ON gm.id = bm.id
@@ -74,6 +75,6 @@ LIMIT 25;
 ```
 
 <DataTable data={low_hanging_fruit} search=true>
-  <Column id="id" title="Model ID" />
+  <Column id="hf_link" contentType="link" title="Model ID" />
   <Column id="downloads" title="Downloads" fmt="#,##0" />
 </DataTable>
