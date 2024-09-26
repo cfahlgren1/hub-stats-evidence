@@ -32,7 +32,6 @@ SELECT
   repo,
   COUNT(*) AS creations
 FROM all_data
-WHERE month < DATE_TRUNC('month', CURRENT_DATE())
 GROUP BY month, repo
 ORDER BY month, repo
 ```
@@ -74,13 +73,15 @@ SELECT month, repo, creations
 FROM ${hub_growth}
 WHERE repo = 'dataset'
 ```
-
-<AreaChart 
-    data={dataset_creations_by_month}
+  <AreaChart 
+      data={dataset_creations_by_month}
     x=month
     fillColor="#cf0d06"
     strokeColor="#eb5752"
+    lineColor="#000000"
     labels=true
+    yMax=20000
+    fillOpacity=0.1
     y=creations
 />
 
