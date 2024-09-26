@@ -2,9 +2,6 @@
 title: 🤗 Stats
 ---
 
-# Hub Growth
-
-Models, Datasets, Spaces created per month
 
 ```sql hub_growth
 WITH all_data AS (
@@ -36,6 +33,8 @@ GROUP BY month, repo
 ORDER BY month, repo
 ```
 
+## Models, Datasets, Spaces created per month.
+
 <BarChart 
     data={hub_growth}
     x=month
@@ -49,7 +48,7 @@ ORDER BY month, repo
     series=repo
 />
 
-# Model Created Each Month
+## Models Created Each Month
 
 ```sql model_creations_by_month
 SELECT month, repo, creations
@@ -66,7 +65,7 @@ WHERE repo = 'model'
     y=creations
 />
 
-# Dataset Created Each Month
+## Datasets Created Each Month
 
 ```sql dataset_creations_by_month
 SELECT month, repo, creations
@@ -76,16 +75,13 @@ WHERE repo = 'dataset'
   <AreaChart 
       data={dataset_creations_by_month}
     x=month
+    y=creations
     fillColor="#cf0d06"
     strokeColor="#eb5752"
-    lineColor="#000000"
     labels=true
-    yMax=20000
-    fillOpacity=0.1
-    y=creations
 />
 
-# Space Created Each Month
+## Spaces Created Each Month
 
 ```sql space_creations_by_month
 SELECT month, repo, creations
