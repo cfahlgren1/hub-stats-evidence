@@ -49,7 +49,7 @@ ORDER BY month, repo
     series=repo
 />
 
-# Model Growth Monthly
+# Model Created Each Month
 
 ```sql model_creations_by_month
 SELECT month, repo, creations
@@ -66,7 +66,7 @@ WHERE repo = 'model'
     y=creations
 />
 
-# Dataset Growth Monthly
+# Dataset Created Each Month
 
 ```sql dataset_creations_by_month
 SELECT month, repo, creations
@@ -85,7 +85,7 @@ WHERE repo = 'dataset'
     y=creations
 />
 
-# Space Growth Monthly
+# Space Created Each Month
 
 ```sql space_creations_by_month
 SELECT month, repo, creations
