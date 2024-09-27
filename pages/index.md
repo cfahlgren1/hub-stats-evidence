@@ -1,7 +1,8 @@
 ---
-title: 🤗 Stats
+title: 🤗 Hub Stats
 ---
 
+_Note: The charts are updated daily via the [hub-stats](https://github.com/cfahlgren1/hub-stats) dataset. It may take a little while for the data to load as the queries are running entirely in the browser._
 
 ```sql hub_growth
 WITH all_data AS (
@@ -32,6 +33,37 @@ FROM all_data
 GROUP BY month, repo
 ORDER BY month, repo
 ```
+
+## Cumulative Hub Growth
+
+```sql cumulative_growth_by_repo
+WITH ordered_data AS (
+  SELECT
+    month,
+    repo,
+    creations,
+    ROW_NUMBER() OVER (PARTITION BY repo ORDER BY month) AS row_num
+  FROM ${hub_growth}
+)
+SELECT
+  month,
+  repo,
+  SUM(creations) OVER (PARTITION BY repo ORDER BY month) AS cumulative_creations
+FROM ordered_data
+ORDER BY month, repo
+```
+
+<AreaChart 
+    data={cumulative_growth_by_repo}
+    x=month
+    y=cumulative_creations
+    series=repo
+    colorPalette={[
+      '#cf0d06',
+      '#eb5752',
+      '#e88a87',
+    ]}
+/>
 
 ## Models, Datasets, Spaces created per month.
 
