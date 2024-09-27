@@ -2,7 +2,7 @@
 title: 🤗 Hub Stats
 ---
 
-_Note: The charts are updated daily via the [hub-stats](https://github.com/cfahlgren1/hub-stats) dataset. It may take a little while for the data to load as the queries are running entirely in the browser._
+_Note: The charts are updated daily via the [hub-stats](https://huggingface.co/spaces/cfahlgren1/hub-stats) dataset. It may take a little while for the data to load as the queries are running entirely in the browser._
 
 ```sql hub_growth
 WITH all_data AS (
