@@ -58,6 +58,8 @@ ORDER BY month, repo
     x=month
     y=cumulative_creations
     series=repo
+    yFmt='#,##0.00,,"M"'
+    xFmt='MMM yyyy'
     colorPalette={[
       '#cf0d06',
       '#eb5752',
@@ -70,8 +72,9 @@ ORDER BY month, repo
 <BarChart 
     data={hub_growth}
     x=month
+    xFmt='MMM yyyy'
     y=creations
-      colorPalette={[
+    colorPalette={[
         '#cf0d06',
         '#eb5752',
         '#e88a87',
@@ -91,6 +94,7 @@ WHERE repo = 'model'
 <AreaChart 
     data={model_creations_by_month}
     x=month
+    xFmt='MMM yyyy'
     fillColor="#cf0d06"
     strokeColor="#eb5752"
     labels=true
@@ -104,9 +108,10 @@ SELECT month, repo, creations
 FROM ${hub_growth}
 WHERE repo = 'dataset'
 ```
-  <AreaChart 
-      data={dataset_creations_by_month}
+<AreaChart 
+    data={dataset_creations_by_month}
     x=month
+    xFmt='MMM yyyy'
     y=creations
     fillColor="#cf0d06"
     strokeColor="#eb5752"
@@ -124,6 +129,7 @@ WHERE repo = 'space'
 <AreaChart 
     data={space_creations_by_month}
     x=month
+    xFmt='MMM yyyy'
     y=creations
     fillColor="#cf0d06"
     strokeColor="#eb5752"
