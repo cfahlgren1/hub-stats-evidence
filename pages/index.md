@@ -7,21 +7,21 @@ _Note: The charts are updated daily via the https://huggingface.co/datasets/cfah
 ```sql hub_growth
 WITH all_data AS (
   SELECT 
-    DATE_TRUNC('month', CAST(createdAt AS DATE)) AS month, 
+    DATE_TRUNC('month', createdAt::TIMESTAMP) AS month, 
     'model' AS repo 
   FROM read_parquet('https://huggingface.co/datasets/cfahlgren1/hub-stats/resolve/refs%2Fconvert%2Fparquet/models/train/0000.parquet?download=true')
   
   UNION ALL
   
   SELECT 
-    DATE_TRUNC('month', CAST(createdAt AS DATE)) AS month, 
+    DATE_TRUNC('month', createdAt::TIMESTAMP) AS month, 
     'dataset' AS repo 
   FROM read_parquet('https://huggingface.co/datasets/cfahlgren1/hub-stats/resolve/refs%2Fconvert%2Fparquet/datasets/train/0000.parquet?download=true')
   
   UNION ALL
   
   SELECT 
-    DATE_TRUNC('month', CAST(createdAt AS DATE)) AS month, 
+    DATE_TRUNC('month', createdAt::TIMESTAMP) AS month, 
     'space' AS repo 
   FROM read_parquet('https://huggingface.co/datasets/cfahlgren1/hub-stats/resolve/refs%2Fconvert%2Fparquet/spaces/train/0000.parquet?download=true')
 )
