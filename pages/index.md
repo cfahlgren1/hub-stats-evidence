@@ -2,7 +2,7 @@
 title: 🤗 Hub Stats
 ---
 
-_Note: The charts are updated daily via the https://huggingface.co/datasets/cfahlgren1/hub-stats dataset. It may take a little while for the data to load as the queries are running entirely in the browser._
+_Note: The charts are updated daily via the <a class="font-bold text-blue" href="https://huggingface.co/datasets/cfahlgren1/hub-stats" target="_blank" rel="noopener noreferrer">hub-stats dataset</a>. It may take a little while for the data to load as the queries are running entirely in the browser._
 
 ```sql hub_growth
 WITH all_data AS (
@@ -60,11 +60,6 @@ ORDER BY month, repo
     series=repo
     yFmt='#,##0.00,,"M"'
     xFmt='MMM yyyy'
-    colorPalette={[
-      '#cf0d06',
-      '#eb5752',
-      '#e88a87',
-    ]}
 />
 
 ## Models, Datasets, Spaces created per month.
@@ -74,12 +69,6 @@ ORDER BY month, repo
     x=month
     xFmt='MMM yyyy'
     y=creations
-    colorPalette={[
-        '#cf0d06',
-        '#eb5752',
-        '#e88a87',
-        '#fcdad9',
-        ]}
     series=repo
 />
 
@@ -95,8 +84,6 @@ WHERE repo = 'model'
     data={model_creations_by_month}
     x=month
     xFmt='MMM yyyy'
-    fillColor="#cf0d06"
-    strokeColor="#eb5752"
     labels=true
     y=creations
 />
@@ -113,8 +100,6 @@ WHERE repo = 'dataset'
     x=month
     xFmt='MMM yyyy'
     y=creations
-    fillColor="#cf0d06"
-    strokeColor="#eb5752"
     labels=true
 />
 
@@ -131,8 +116,6 @@ WHERE repo = 'space'
     x=month
     xFmt='MMM yyyy'
     y=creations
-    fillColor="#cf0d06"
-    strokeColor="#eb5752"
     labels=true
 />
 
